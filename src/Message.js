@@ -40,11 +40,14 @@ export default class Message extends React.Component {
     return <Bubble {...bubbleProps}/>;
   }
 
-  renderAvatar() {
-    // if (this.props.user._id !== this.props.currentMessage.user._id) {
-    //   const avatarProps = this.getInnerComponentProps();
-    //   return <Avatar {...avatarProps}/>;
-    // }
+  renderFailed() {
+    if (this.props.currentMessage.failed) {
+      <View style={[styles.wrapper]}>
+        <Text style={[styles.iconText]}>
+          !
+        </Text>
+      </View>
+    }
     return null;
   }
 
@@ -55,9 +58,9 @@ export default class Message extends React.Component {
         <View style={[styles[this.props.position].container, {
           marginBottom: isSameUser(this.props.currentMessage, this.props.nextMessage) ? 2 : 10,
         }, this.props.containerStyle[this.props.position]]}>
-          {this.props.position === 'left' ? this.renderAvatar() : null}
+          {this.props.position === 'right' ? this.renderFailed() : null}
           {this.renderBubble()}
-          {this.props.position === 'right' ? this.renderAvatar() : null}
+          {this.props.position === 'left' ? this.renderFailed() : null}
         </View>
       </View>
     );
@@ -83,6 +86,20 @@ const styles = {
       marginRight: 8,
     },
   }),
+  wrapper: {
+    borderRadius: 13,
+    borderColor: '#424242',
+    borderWidth: 2,
+    backgroundColor: '#424242',
+    flex: 1,
+  },
+  iconText: {
+    color: '#b2b2b2',
+    fontWeight: 'bold',
+    fontSize: 16,
+    backgroundColor: 'transparent',
+    textAlign: 'center',
+  },
 };
 
 Message.defaultProps = {
