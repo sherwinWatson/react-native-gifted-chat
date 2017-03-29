@@ -121,6 +121,7 @@ export default class Bubble extends React.Component {
       <View style={[styles[this.props.position].container, this.props.containerStyle[this.props.position]]}>
         <View style={[styles[this.props.position].wrapper, this.props.wrapperStyle[this.props.position], this.handleBubbleToNext(), this.handleBubbleToPrevious()]}>
           <TouchableWithoutFeedback
+            onPress={this.props.onPress}
             onLongPress={this.onLongPress}
             accessibilityTraits="text"
             {...this.props.touchableProps}
@@ -163,7 +164,6 @@ const styles = {
   }),
   right: StyleSheet.create({
     container: {
-      flex: 1,
       alignItems: 'flex-end',
     },
     wrapper: {
@@ -202,6 +202,7 @@ Bubble.contextTypes = {
 Bubble.defaultProps = {
   touchableProps: {},
   onLongPress: null,
+  onPress: null,
   renderMessageImage: null,
   renderMessageText: null,
   renderCustomView: null,
@@ -227,6 +228,7 @@ Bubble.defaultProps = {
 Bubble.propTypes = {
   touchableProps: React.PropTypes.object,
   onLongPress: React.PropTypes.func,
+  onPress: React.PropTypes.func,
   renderMessageImage: React.PropTypes.func,
   renderMessageText: React.PropTypes.func,
   renderCustomView: React.PropTypes.func,
