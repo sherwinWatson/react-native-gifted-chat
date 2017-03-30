@@ -48,7 +48,7 @@ export default class Message extends React.Component {
 
   onPress() {
     if (this.props.onPress) {
-      this.props.onPress(this.context);
+      this.props.onPress(this.props.currentMessage);
     } else {
       if (this.props.currentMessage.failed) {
         const options = [
