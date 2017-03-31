@@ -18,9 +18,7 @@ export default class Send extends React.Component {
       <TouchableOpacity
         style={[styles.container, this.props.containerStyle]}
         onPress={() => {
-          if (this.props.text.trim().length > 0) {
-            this.props.onSend({text: this.props.text.trim()}, true);
-          }
+          this.props.onSend({text: this.props.text.trim()}, true);
         }}
         accessibilityTraits="button"
       >
