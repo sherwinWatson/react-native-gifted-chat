@@ -14,20 +14,19 @@ export default class Send extends React.Component {
   //   return false;
   // }
   render() {
-    if (this.props.text.trim().length > 0) {
-      return (
-        <TouchableOpacity
-          style={[styles.container, this.props.containerStyle]}
-          onPress={() => {
+    return (
+      <TouchableOpacity
+        style={[styles.container, this.props.containerStyle]}
+        onPress={() => {
+          if (this.props.text.trim().length > 0) {
             this.props.onSend({text: this.props.text.trim()}, true);
-          }}
-          accessibilityTraits="button"
-        >
-          <Text style={[styles.text, this.props.textStyle]}>{this.props.label}</Text>
-        </TouchableOpacity>
-      );
-    }
-    return <View/>;
+          }
+        }}
+        accessibilityTraits="button"
+      >
+        <Text style={[styles.text, this.props.textStyle]}>{this.props.label}</Text>
+      </TouchableOpacity>
+    );
   }
 }
 
