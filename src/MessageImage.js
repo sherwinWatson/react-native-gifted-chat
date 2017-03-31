@@ -4,30 +4,56 @@ import {
   StyleSheet,
   View,
   Dimensions,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import Lightbox from 'react-native-lightbox';
 
 export default class MessageImage extends React.Component {
-  render() {
-    const { width, height } = Dimensions.get('window');
+  renderImage() {
+    const { width } = Dimensions.get('window');
     const { ratio } = this.props.currentMessage
     const bubbleWidth = width - 74
-    const imageHeight = bubbleWidth / ratio < height / 2 ? bubbleWidth / ratio : height / 2
+    const imageHeight = bubbleWidth / ratio < bubbleWidth ? bubbleWidth / ratio : bubbleWidth
 
     return (
-      <View style={[styles.container, this.props.containerStyle]}>
+      <Image
+        {...this.props.imageProps}
+        style={[styles.image, this.props.imageStyle, { width: bubbleWidth, height: imageHeight }]}
+        source={{uri: this.props.currentMessage.image}}
+      />
+    )
+  }
+
+  renderImageTouch() {
+    const { width, height } = Dimensions.get('window');
+
+    if (this.props.currentMessage.banner) {
+      return (
+        <TouchableWithoutFeedback
+          onPress={this.props.onPress}
+          {...this.props.touchableProps}
+        >
+          {this.renderImage()}
+        </TouchableWithoutFeedback>
+      )
+    } else {
+      return (
         <Lightbox
           activeProps={{
             style: [styles.imageActive, { width, height }],
           }}
           {...this.props.lightboxProps}
         >
-          <Image
-            {...this.props.imageProps}
-            style={[styles.image, this.props.imageStyle, { width: bubbleWidth, height: imageHeight }]}
-            source={{uri: this.props.currentMessage.image}}
-          />
+          {this.renderImage()}
         </Lightbox>
+      )
+    }
+  }
+
+  render() {
+    return (
+      <View style={[styles.container, this.props.containerStyle]}>
+        {this.renderImageTouch()}
       </View>
     );
   }
@@ -54,6 +80,7 @@ MessageImage.defaultProps = {
   imageStyle: {},
   imageProps: {},
   lightboxProps: {},
+  onPress: null,
 };
 
 MessageImage.propTypes = {
@@ -62,4 +89,5 @@ MessageImage.propTypes = {
   imageStyle: Image.propTypes.style,
   imageProps: React.PropTypes.object,
   lightboxProps: React.PropTypes.object,
+  onPress: React.PropTypes.func,
 };

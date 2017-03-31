@@ -49,29 +49,29 @@ export default class Message extends React.Component {
   onPress() {
     if (this.props.onPress) {
       this.props.onPress(this.props.currentMessage);
-    } else {
-      if (this.props.currentMessage.failed) {
-        const options = [
-          'Resend',
-          'Delete',
-          'Cancel',
-        ];
-        const cancelButtonIndex = options.length - 1;
-        this.context.actionSheet().showActionSheetWithOptions({
-            options,
-            cancelButtonIndex,
-          },
-          (buttonIndex) => {
-            switch (buttonIndex) {
-              case 0:
-                this.props.onResend ? this.props.onResend([this.props.currentMessage]) : null;
-                break;
-              case 1:
-                this.props.onDelete ? this.props.onDelete(this.props.currentMessage._id) : null;
-                break;
-            }
-          });
-      }
+    }
+
+    if (this.props.currentMessage.failed) {
+      const options = [
+        'Resend',
+        'Delete',
+        'Cancel',
+      ];
+      const cancelButtonIndex = options.length - 1;
+      this.context.actionSheet().showActionSheetWithOptions({
+          options,
+          cancelButtonIndex,
+        },
+        (buttonIndex) => {
+          switch (buttonIndex) {
+            case 0:
+              this.props.onResend ? this.props.onResend([this.props.currentMessage]) : null;
+              break;
+            case 1:
+              this.props.onDelete ? this.props.onDelete(this.props.currentMessage._id) : null;
+              break;
+          }
+        });
     }
   }
 

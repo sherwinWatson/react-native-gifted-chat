@@ -50,7 +50,7 @@ export default class Bubble extends React.Component {
       if (this.props.renderMessageImage) {
         return this.props.renderMessageImage(messageImageProps);
       }
-      return <MessageImage {...messageImageProps}/>;
+      return <MessageImage {...messageImageProps} onPress = {this.onPress}/>;
     }
     return null;
   }
