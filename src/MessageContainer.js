@@ -39,7 +39,7 @@ export default class MessageContainer extends React.Component {
         const previousMessage = messages[i + 1] || {};
         const nextMessage = messages[i - 1] || {};
         // add next and previous messages to hash to ensure updates
-        const toHash = JSON.stringify(m) + previousMessage._id + nextMessage._id;
+        const toHash = m + previousMessage._id + nextMessage._id;
         o[m._id] = {
           ...m,
           previousMessage,
@@ -102,10 +102,10 @@ export default class MessageContainer extends React.Component {
 
   renderRow(message, sectionId, rowId) {
     if (!message._id && message._id !== 0) {
-      console.warn('GiftedChat: `_id` is missing for message', JSON.stringify(message));
+      console.warn('GiftedChat: `_id` is missing for message', message);
     }
     if (!message.user) {
-      console.warn('GiftedChat: `user` is missing for message', JSON.stringify(message));
+      console.warn('GiftedChat: `user` is missing for message', message);
       message.user = {};
     }
 

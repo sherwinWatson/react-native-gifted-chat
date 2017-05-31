@@ -66,7 +66,10 @@ export default class Bubble extends React.Component {
     if (currentMessage.sent || currentMessage.received) {
       return (
         <View style={styles.tickView}>
-          {currentMessage.sent && <Text style={[styles.tick, this.props.tickStyle]}>✓</Text>}
+          {currentMessage.sent && currentMessage.sentIcon
+            ? currentMessage.sentIcon
+            : <Text style={[styles.tick, this.props.tickStyle]}>✓</Text>
+          }
           {currentMessage.received && <Text style={[styles.tick, this.props.tickStyle]}>✓</Text>}
         </View>
       )
